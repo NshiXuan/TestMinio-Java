@@ -6,10 +6,9 @@ import java.io.Serializable;
 
 @Data
 public class R<T> implements Serializable {
-    private Integer code;
+    private Integer code; // 0代表成功 -1代表失败
     private T data;
     private String msg;
-
 
     public R() {
     }
@@ -36,6 +35,10 @@ public class R<T> implements Serializable {
 
     public static <T> R<T> success(String msg, T data) {
         return new R<>(0, data, msg);
+    }
+
+    public static <T> R<T> error(String msg) {
+        return new R<>(-1, msg);
     }
 
     public static <T> R<T> error(Integer code, String msg) {
