@@ -25,7 +25,7 @@ public class Utils {
         return mimeType;
     }
 
-    //格式化年/月/日 用来作为文件存储目录
+    //格式化年/月/日 用来作为文件存储目录 分片不用这个 分片用md5
     public static String getFormatTime() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String folder = sdf.format(new Date()).replace("-", "/") + "/";

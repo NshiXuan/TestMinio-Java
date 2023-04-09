@@ -34,9 +34,9 @@ public class MediaFilesServiceImpl implements MediaFilesService {
     @Autowired
     MinioClient minioClient;
 
-    @Autowired
-    MediaFilesService currentProxy;
-
+    // 这里会形成依赖循环注入
+//    @Resource
+//    MediaFilesService currentProxy;
 
     //存储普通文件
     @Value("${minio.bucket.files}")
@@ -86,7 +86,7 @@ public class MediaFilesServiceImpl implements MediaFilesService {
         }
 
         // 8.将数据保存到数据库
-        MediaFiles mediaFiles = currentProxy.addFilesToDb(fileMd5, uploadFileParamsDto, bucket_files, filePath);
+        MediaFiles mediaFiles = addFilesToDb(fileMd5, uploadFileParamsDto, bucket_files, filePath);
         if (mediaFiles == null) {
             MyException.cast(Code.SERVICE_BUSY);
         }
@@ -202,7 +202,7 @@ public class MediaFilesServiceImpl implements MediaFilesService {
         // todo: 3.校验合并后的源文件是否一致，视频上传才成功 如何校验
 
         // 4.将文件信息入库
-        MediaFiles mediaFiles = currentProxy.addFilesToDb(fileMd5, uploadFileParamsDto, bucket_video, objectName);
+        MediaFiles mediaFiles = addFilesToDb(fileMd5, uploadFileParamsDto, bucket_video, objectName);
         if (mediaFiles == null) {
             log.error("文件信息插入数据库失败 mergeChunk failed");
             MyException.cast(Code.SERVICE_BUSY);

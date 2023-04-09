@@ -84,7 +84,6 @@ public class MinioController {
      *
      * @param fileMd5    原始文件的md5
      * @param chunkIndex 分块序号
-     * @return
      */
     @PostMapping("/upload/checkchunk")
     public R<Boolean> checkChunk(@RequestParam("fileMd5") String fileMd5, @RequestParam("chunkIndex") int chunkIndex) {
@@ -92,8 +91,15 @@ public class MinioController {
         return R.success(result);
     }
 
+    /**
+     * 合并文件
+     *
+     * @param fileMd5    原始文件的md5
+     * @param fileName   原始文件的名称
+     * @param chunkTotal 分块总数
+     */
     @PostMapping("/upload/mergechunks")
-    public R<Boolean> mergeChunk(@RequestParam("fileMd5") String fileMd5, @RequestParam("fileName") String fileName, @RequestParam("chunkTotal") int chunkTotal) throws Exception {
+    public R<Boolean> mergeChunk(@RequestParam("fileMd5") String fileMd5, @RequestParam("fileName") String fileName, @RequestParam("chunkTotal") int chunkTotal) {
         // 1.映射文件参数信息
         UploadFileParamsDto uploadFileParamsDto = new UploadFileParamsDto();
         uploadFileParamsDto.setFilename(fileName);

@@ -49,11 +49,13 @@ public interface MediaFilesService {
     Boolean mergeChunk(String fileMd5, int chunkTotal, UploadFileParamsDto uploadFileParamsDto);
 
     /**
+     * 文件信息入库
+     *
      * @param fileMd5             原始文件md5 用来做文件的id
      * @param uploadFileParamsDto 文件参数
      * @param bucket              存储的桶
      * @param filePath            文件存储路径
      * @return
      */
-    MediaFiles addFilesToDb(String fileMd5, UploadFileParamsDto uploadFileParamsDto, String bucket, String filePath);
+    public MediaFiles addFilesToDb(String fileMd5, UploadFileParamsDto uploadFileParamsDto, String bucket, String filePath);
 }

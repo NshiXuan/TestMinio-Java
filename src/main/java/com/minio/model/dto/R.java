@@ -1,5 +1,6 @@
 package com.minio.model.dto;
 
+import com.minio.exception.Code;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -32,13 +33,24 @@ public class R<T> implements Serializable {
         return new R<>(0, data, "success");
     }
 
-
     public static <T> R<T> success(String msg, T data) {
         return new R<>(0, data, msg);
     }
 
+    public static <T> R<T> success(Code code) {
+        return new R<>(code.getCode(), code.getMsg());
+    }
+
+    public static <T> R<T> success(Code code, T data) {
+        return new R<>(code.getCode(), data, code.getMsg());
+    }
+
     public static <T> R<T> error(String msg) {
         return new R<>(-1, msg);
+    }
+
+    public static <T> R<T> error(Code code) {
+        return new R<>(code.getCode(), code.getMsg());
     }
 
     public static <T> R<T> error(Integer code, String msg) {
